@@ -3,6 +3,9 @@ from menu import ShowMenu
 opcao_tratamento_de_colisoes = None
 opcao_funcao_hash = None
 def main():
+
+
+def tratamento_de_colisoes():
     while True:
         tratamentos_de_colisoes = ["Encadeamento Exterior", "Encadeamento Interior", "Endereçamento Aberto"]
         opcao_tratamento_de_colisoes = ShowMenu(tratamentos_de_colisoes, "Escolha um tratamento de colisões")
@@ -18,23 +21,15 @@ def main():
                 break
             case _:
                 return
-            
+
+def funcao_hash():
     while True:
         funcaoes_hash = ["Divisão", "Dobra", "Multiplicação"]
         opcao_funcao_hash = ShowMenu(funcaoes_hash, "Escolha uma função hash")
         match opcao_funcao_hash:
-            case "1":
-                # Divisão
-                break
-            case "2":
-                # Dobra
-                break
-            case "3":
-                # Multiplicação
-                break
             case _:
+                print("Opção inválida")
                 return
-
 
 def menu():
     while True:
@@ -102,7 +97,25 @@ class TabelaHash:
         pass
     
     def buscar(self, nome):
-        pass
+        match opcao_funcao_hash:
+
+            case 1:
+                # Divisão
+                index = hash_divisao(nome, self.tamanho)
+            case 2:
+                # Dobra
+                pass
+            case 3:
+                # Multiplicação
+                pass
+            case _:
+                pass
+
+        if self.tabela.get(index) is None:
+            self.tabela[index] = [nome]
+        else:
+            # Tratamento de colisões
+            self.tabela[index].append(nome)
     
     def remover(self, nome):
         pass
