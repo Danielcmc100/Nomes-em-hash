@@ -1,18 +1,65 @@
 from menu import ShowMenu
 
+opcao_tratamento_de_colisoes = None
+opcao_funcao_hash = None
 def main():
+    while True:
+        tratamentos_de_colisoes = ["Encadeamento Exterior", "Encadeamento Interior", "Endereçamento Aberto"]
+        opcao_tratamento_de_colisoes = ShowMenu(tratamentos_de_colisoes, "Escolha um tratamento de colisões")
+        match opcao_tratamento_de_colisoes:
+            case "1":
+                # Encadeamento Exterior
+                break
+            case "2":
+                # Encadeamento Interior
+                break
+            case "3":
+                # Endereçamento Aberto
+                break
+            case _:
+                return
+            
+    while True:
+        funcaoes_hash = ["Divisão", "Dobra", "Multiplicação"]
+        opcao_funcao_hash = ShowMenu(funcaoes_hash, "Escolha uma função hash")
+        match opcao_funcao_hash:
+            case "1":
+                # Divisão
+                break
+            case "2":
+                # Dobra
+                break
+            case "3":
+                # Multiplicação
+                break
+            case _:
+                return
+
+
+def menu():
     while True:
         opcao = ShowMenu(["Adicionar", "Buscar", "Remover"], "Tabela Hash", "Sair")
         match opcao:
             case 1:
-                pass
+                adicionar()
             case 2:
-                pass
+                buscar()
             case 3:
-                pass
+                remover()
             case _:
                 break
 
+def adicionar():
+
+    pass
+
+
+def buscar():
+    pass 
+
+
+def remover():
+    pass
 
 # Exemplo de switch case em Python
 # match term:
@@ -60,8 +107,8 @@ class TabelaHash:
     def remover(self, nome):
         pass
     
-    def hash_divisao(self, nome):
-        pass
+    def hash_divisao(nome, tamanho_tabela):
+        return sum(ord(c) for c in nome) % tamanho_tabela
     
     def hash_dobra(self, nome):
         pass
