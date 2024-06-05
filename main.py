@@ -25,6 +25,9 @@ from menu import ShowMenu
 
 class TabelaHash:
     def __init__(self, tamanho, metodo_dispersao):
+        # substitui o dicionario por uma lista, como nao da pra criar um
+        # vertor vazio em python, criei uma lista de tamanho "tamanho" e
+        # preenchi ela com "None" (do mesmo jeito que a professora fez)
         self.tabela = [None] * tamanho
         self.tamanho = tamanho
         self.metodo_dispersao = metodo_dispersao
@@ -149,7 +152,7 @@ def remover():
         print(f"O {nome} foi removido da tabela!")
 
 
-# Principal
+# Removi a funcao main() para que "tabela_hash" seja global
 tamanho = int(input('Informe o tamanho da tabela: '))
 dispersao = funcao_hash()
 tabela_hash = TabelaHash(tamanho, dispersao)
