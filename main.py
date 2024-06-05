@@ -1,9 +1,76 @@
 from menu import ShowMenu
 
+
+# Requisitos:
+# 1. Implemente uma classe chamada TabelaHash que sera responsavel por armazenar
+# os nomes na tabela hash.
+# 2. Dentro da classe TabelaHash, implemente os metodos necessarios para
+# adicionar, buscar e remover nomes na tabela.
+# 3. Crie uma funcao chamada hash divisao que recebe um nome como parametro e
+# retorna o ındice da tabela hash utilizando o Metodo da Divisao.
+# 4. Crie uma funcao chamada hash dobra que recebe um nome como parametro e
+# retorna o ındice da tabela hash utilizando o Metodo da Dobra.
+# 5. Crie uma funcao chamada hash multiplicacao que recebe um nome como 
+# parametro e retorna o ındice da tabela hash utilizando o Metodo da 
+# Multiplicacao.
+# 6. Implemente as classes necessarias para o tratamento de colisoes escolhido
+# pelo usuario: Encadeamento Exterior, Encadeamento Interior ou Enderecamento
+# Aberto (Tentativa Sequencial).
+# 7. No programa principal, solicite ao usuario qual tipo de funcao hash e
+# tratamento de colisoes ele deseja utilizar.
+# 8. Crie um loop que permite ao usuario adicionar, buscar e remover nomes na
+# tabela hash ate que ele decida sair do programa.
+# 9. Exiba a tabela hash atualizada apos cada operacao.
+
+
+class TabelaHash:
+    def __init__(self, tamanho, metodo_dispersao):
+        self.tabela = [None] * tamanho
+        self.tamanho = tamanho
+        self.metodo_dispersao = metodo_dispersao
+        
+
+    def adicionar(self, nome):
+        indice = self.calcula_index(nome)
+        self.tabela[indice] = nome
+    
+
+    # Se a pesquisa encontrar resultados, retorna indice em que
+    # o nome está localizado
+    # Se não, retorna False
+    def pesquisa(self, nome):
+        indice = self.calcula_index(nome)
+        if self.tabela[indice] is not None:
+            return indice
+        else:
+            return False
+
+
+    def remover(self, nome):
+        indice = self.calcula_index(nome)
+        self.tabela[indice] = None
+
+
+    def hash_divisao(self, nome):
+        return sum(ord(c) for c in nome) % self.tamanho
+
+
+    def hash_dobra(self, nome):
+        pass
+
+
+    def hash_multiplicacao(self, nome):
+        pass
+    
+    
+    def calcula_index(self, nome):
+        match self.metodo_dispersao:
+            case 'divisao':
+                return self.hash_divisao(nome)
+
+
 opcao_tratamento_de_colisoes = None
 opcao_funcao_hash = None
-def main():
-
 
 def tratamento_de_colisoes():
     while True:
@@ -20,41 +87,74 @@ def tratamento_de_colisoes():
                 # Endereçamento Aberto
                 break
             case _:
-                return
+                pass
+
 
 def funcao_hash():
     while True:
         funcaoes_hash = ["Divisão", "Dobra", "Multiplicação"]
-        opcao_funcao_hash = ShowMenu(funcaoes_hash, "Escolha uma função hash")
+        opcao_funcao_hash = ShowMenu(funcaoes_hash, "Escolha mua função hash")
         match opcao_funcao_hash:
+            case "1":
+                return 'divisao'
+                break
+            case "2":
+                # Encadeamento Interior
+                pass
+            case "3":
+                # Endereçamento Aberto
+                pass
             case _:
-                print("Opção inválida")
-                return
+                pass
+
 
 def menu():
     while True:
         opcao = ShowMenu(["Adicionar", "Buscar", "Remover"], "Tabela Hash", "Sair")
         match opcao:
-            case 1:
+            case "1":
                 adicionar()
-            case 2:
+            case "2":
                 buscar()
-            case 3:
+            case "3":
                 remover()
             case _:
                 break
+        print(f"Tabela Hash: {tabela_hash.tabela}")
+        input('Pressione Enter para continuar....')
+
 
 def adicionar():
-
-    pass
+    nome = input('insira o nome que deseja adicionar na tabela: ')
+    tabela_hash.adicionar(nome)
+    print(f'{nome} adicionado com sucesso!')
 
 
 def buscar():
-    pass 
+    nome = input('insira o nome que deseja adicionar na tabela: ')
+    pesquisa = tabela_hash.pesquisa(nome)
+    if pesquisa is False:
+        print(f'O nome "{nome}" não foi encontrado!')
+    else:
+        print(f"O {nome} foi encontrado no endereço {pesquisa}")
 
 
 def remover():
-    pass
+    nome = input('insira o nome que deseja remover tabela: ')
+    pesquisa = tabela_hash.pesquisa(nome)
+    if pesquisa is False:
+        print(f'O nome "{nome}" fão encontrado!')
+    else:
+        tabela_hash.remover(nome)
+        print(f"O {nome} foi removido da tabela!")
+
+
+# Principal
+tamanho = int(input('Informe o tamanho da tabela: '))
+dispersao = funcao_hash()
+tabela_hash = TabelaHash(tamanho, dispersao)
+menu()
+
 
 # Exemplo de switch case em Python
 # match term:
@@ -68,72 +168,11 @@ def remover():
 #         action-default
 
 
-if __name__ == '__main__':
-    main()
-
-# Requisitos:
-# 1. Implemente uma classe chamada TabelaHash que ser´a respons´avel por armazenar os nomes na tabela hash.
-# 2. Dentro da classe TabelaHash, implemente os m´etodos necess´arios para adicionar, buscar e remover nomes na
-# tabela.
-# 3. Crie uma fun¸c˜ao chamada hash divisao que recebe um nome como parˆametro e retorna o ´ındice da tabela
-# hash utilizando o M´etodo da Divis˜ao.
-# 4. Crie uma fun¸c˜ao chamada hash dobra que recebe um nome como parˆametro e retorna o ´ındice da tabela hash
-# utilizando o M´etodo da Dobra.
-# 5. Crie uma fun¸c˜ao chamada hash multiplicacao que recebe um nome como parˆametro e retorna o ´ındice da
-# tabela hash utilizando o M´etodo da Multiplica¸c˜ao.
-# 6. Implemente as classes necess´arias para o tratamento de colis˜oes escolhido pelo usu´ario: Encadeamento Exterior, Encadeamento Interior ou Endere¸camento Aberto (Tentativa Sequencial).
-# 7. No programa principal, solicite ao usu´ario qual tipo de fun¸c˜ao hash e tratamento de colis˜oes ele deseja utilizar.
-# 8. Crie um loop que permite ao usu´ario adicionar, buscar e remover nomes na tabela hash at´e que ele decida sair
-# do programa.
-# 9. Exiba a tabela hash atualizada ap´os cada opera¸c˜ao.
+# if __name__ == '__main__':
+#     main()
 
 
-class TabelaHash:
-    def __init__(self, tamanho):
-        self.tabela = {}
-        self.tamanho = tamanho
 
-    def adicionar(self, nome):
-        pass
-    
-    def buscar(self, nome):
-        match opcao_funcao_hash:
-
-            case 1:
-                # Divisão
-                index = hash_divisao(nome, self.tamanho)
-            case 2:
-                # Dobra
-                pass
-            case 3:
-                # Multiplicação
-                pass
-            case _:
-                pass
-
-        if self.tabela.get(index) is None:
-            self.tabela[index] = [nome]
-        else:
-            # Tratamento de colisões
-            self.tabela[index].append(nome)
-    
-    def remover(self, nome):
-        pass
-    
-    def hash_divisao(nome, tamanho_tabela):
-        return sum(ord(c) for c in nome) % tamanho_tabela
-    
-    def hash_dobra(self, nome):
-        pass
-
-    def hash_multiplicacao(self, nome):
-        pass
-    
-    def encadeamento_exterior(self):
-        pass
-    
-    def encadeamento_interior(self):
-        pass
     
 
     
