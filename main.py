@@ -85,7 +85,15 @@ class TabelaHash:
 
 
     def hash_dobra(self, nome):
-        pass
+        chave = sum(ord(c) for c in nome)
+        chave_str = str(chave)
+        soma_dobra = 0
+
+        for i in range(0, len(chave_str), 2):
+            soma_dobra += int(chave_str[i:i+2])
+
+        indice = soma_dobra % self.tamanho
+        return indice
 
 
     def hash_multiplicacao(self, nome):
