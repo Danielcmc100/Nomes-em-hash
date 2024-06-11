@@ -130,13 +130,13 @@ def menu_funcao_hash():
         opcao_funcao_hash = ShowMenu(funcaoes_hash, "Escolha mua função hash")
         match opcao_funcao_hash:
             case "1":
-                pass
+                break
             case "2":
                 # Encadeamento Interior
-                pass
+                break
             case "3":
                 # Endereçamento Aberto
-                pass
+                break
             case _:
                 pass
 
