@@ -42,22 +42,24 @@ class TabelaHash:
         # substitui o dicionario por uma lista, como nao da pra criar um
         # vertor vazio em python, criei uma lista de tamanho "tamanho" e
         # preenchi ela com "None" (do mesmo jeito que a professora fez)
-        self.tabela = [None] * tamanho
+        self.tabela = {}
         self.tamanho = tamanho
 
 
     def adicionar(self, nome):
         indice = self.calcula_index(nome)
         
-        if self.tabela[indice] is None:
+        if not isinstance(self.tabela.get(indice), str):
             self.tabela[indice] = nome
+            print(f'{nome} adicionado com sucesso!')
         else:
+            print(f"Colisão detectada no endereço {indice}")
             match opcao_tratamento_de_colisoes:
-                case 1:
+                case "1":
                         pass
-                case 2:
+                case "2":
                         pass
-                case 3:
+                case "3":
                         pass
                         
                 case _:
@@ -77,7 +79,7 @@ class TabelaHash:
 
     def remover(self, nome):
         indice = self.calcula_index(nome)
-        self.tabela[indice] = None
+        del self.tabela[indice]
 
 
     def hash_divisao(self, nome):
@@ -97,15 +99,18 @@ class TabelaHash:
 
 
     def hash_multiplicacao(self, nome):
-        pass
+        A = (5 ** 0.5 - 1) / 2
+        chave = sum(ord(c) for c in nome)
+        indice = int(self.tamanho * ((chave * A) % 1))
+        return indice
 
     def calcula_index(self, nome):
         match opcao_funcao_hash:
-            case 1:
+            case "1":
                 return self.hash_divisao(nome)
-            case 2:
+            case "2":
                 return self.hash_dobra(nome)
-            case 3:
+            case "3":
                 return self.hash_multiplicacao(nome)
             case _:
                 raise ValueError("Opção de hash inválida")
@@ -120,12 +125,20 @@ def menu_tratamento_de_colisoes():
         match opcao_tratamento_de_colisoes:
             case "1":
                 # Encadeamento Exterior
+                # Lista comun pra cada elemento
                 break
             case "2":
                 # Encadeamento Interior
+                # Armazena as colisões na própria tabela
+                # Se a posição calculada já estiver ocupada por outra chave (ocorreu uma colisão), 
+                # um método de sondagem é usado para encontrar uma nova posição. Os métodos de sondagem 
+                # incluem sondagem linear, sondagem quadrática e hashing duplo.
+                # A chave é inserida na primeira posição vazia encontrada.
                 break
             case "3":
                 # Endereçamento Aberto
+                
+
                 break
             case _:
                 pass
@@ -146,7 +159,8 @@ def menu_funcao_hash():
                 # Endereçamento Aberto
                 break
             case _:
-                pass
+                print("Opção inválida")
+                input("Pressione Enter para continuar...")
 
 
 def menu():
@@ -168,7 +182,7 @@ def menu():
 def adicionar():
     nome = ShowMenu([], "Nome que deseja adicionar na tabela")
     tabela_hash.adicionar(nome)
-    print(f'{nome} adicionado com sucesso!')
+    
 
 
 def buscar():
