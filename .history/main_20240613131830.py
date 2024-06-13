@@ -244,7 +244,7 @@ def buscar():
 
 def remover():
     nome = ShowMenu([], "Nome que deseja remover na tabela")
-    pesquisa = tabela_hash.pesquisar(nome)
+    pesquisa = tabela_hash.pesquisa(nome)
     if pesquisa is False:
         print(f'O nome "{nome}" fão encontrado!')
     else:

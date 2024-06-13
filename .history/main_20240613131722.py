@@ -67,11 +67,9 @@ class TabelaHash:
 
 
     def remover(self, nome):
-        indice = self.calcula_index(nome)
-
         match opcao_tratamento_de_colisoes:
                 case "1":
-                        self.remove_exterior(indice, nome)
+                        pass
                 case "2":
                         pass
                 case "3":
@@ -123,7 +121,7 @@ class TabelaHash:
 
             elif len(self.tabela[indice]) == 0:
                 del self.tabela[indice]
-
+                 
         else:
             del self.tabela[indice]
         
@@ -244,7 +242,7 @@ def buscar():
 
 def remover():
     nome = ShowMenu([], "Nome que deseja remover na tabela")
-    pesquisa = tabela_hash.pesquisar(nome)
+    pesquisa = tabela_hash.pesquisa(nome)
     if pesquisa is False:
         print(f'O nome "{nome}" fão encontrado!')
     else:

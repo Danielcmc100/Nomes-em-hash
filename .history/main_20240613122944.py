@@ -49,85 +49,37 @@ class TabelaHash:
     def adicionar(self, nome):
         indice = self.calcula_index(nome)
         
-        if indice not in self.tabela:
+        if not isinstance(self.tabela.get(indice), str):
             self.tabela[indice] = nome
             print(f'{nome} adicionado com sucesso!')
         else:
             print(f"Colisão detectada no endereço {indice}")
             match opcao_tratamento_de_colisoes:
                 case "1":
-                        self.adiciona_exterior(indice, nome)
+                        pass
                 case "2":
                         pass
                 case "3":
-                        pass        
+                        pass
+                        
                 case _:
                     raise ValueError("Opção de tratamento de colisão inválida")
 
+
+    # Se a pesquisa encontrar resultados, retorna indice em que
+    # o nome está localizado
+    # Se não, retorna False
+    def pesquisa(self, nome):
+        indice = self.calcula_index(nome)
+        if self.tabela[indice] is not None:
+            return indice
+        else:
+            return False
 
 
     def remover(self, nome):
         indice = self.calcula_index(nome)
-
-        match opcao_tratamento_de_colisoes:
-                case "1":
-                        self.remove_exterior(indice, nome)
-                case "2":
-                        pass
-                case "3":
-                        pass        
-                case _:
-                    raise ValueError("Opção de tratamento de colisão inválida")
-
-
-    def pesquisar(self, nome):
-        indice = self.calcula_index(nome)
-       
-        if indice not in self.tabela:
-            return False
-        
-        elif self.tabela[indice] == nome:
-             return indice
-        
-        else:  
-            match opcao_tratamento_de_colisoes:
-                    case "1":
-                            return self.pesquisa_exterior(indice, nome)
-                    case "2":
-                            pass
-                    case "3":
-                            pass        
-                    case _:
-                        raise ValueError("Opção de tratamento de colisão inválida")
-
-
-    def adiciona_exterior(self, indice, nome):
-        if type(self.tabela[indice]) is not list:
-            self.tabela[indice] = [self.tabela[indice]]
-        
-        self.tabela[indice].append(nome)
-
-
-    def pesquisa_exterior(self, indice, nome):
-        if nome in self.tabela[indice]:
-            return [indice, f"posição na lista: {self.tabela[indice].index(nome)}"]
-        else:
-            return False
-
-
-    def remove_exterior(self, indice, nome):
-        if type(self.tabela[indice]) is list:
-            self.tabela[indice].remove(nome)
-            if len(self.tabela[indice]) == 1:
-                self.tabela[indice] = self.tabela[indice][0]
-
-            elif len(self.tabela[indice]) == 0:
-                del self.tabela[indice]
-
-        else:
-            del self.tabela[indice]
-        
-            
+        del self.tabela[indice]
 
 
     def hash_divisao(self, nome):
@@ -152,7 +104,6 @@ class TabelaHash:
         indice = int(self.tamanho * ((chave * A) % 1))
         return indice
 
-
     def calcula_index(self, nome):
         match opcao_funcao_hash:
             case "1":
@@ -163,6 +114,7 @@ class TabelaHash:
                 return self.hash_multiplicacao(nome)
             case _:
                 raise ValueError("Opção de hash inválida")
+
 
 
 def menu_tratamento_de_colisoes():
@@ -235,7 +187,7 @@ def adicionar():
 
 def buscar():
     nome = ShowMenu([], "Nome que deseja buscar na tabela")
-    pesquisa = tabela_hash.pesquisar(nome)
+    pesquisa = tabela_hash.pesquisa(nome)
     if pesquisa is False:
         print(f'O nome "{nome}" não foi encontrado!')
     else:
@@ -244,12 +196,12 @@ def buscar():
 
 def remover():
     nome = ShowMenu([], "Nome que deseja remover na tabela")
-    pesquisa = tabela_hash.pesquisar(nome)
+    pesquisa = tabela_hash.pesquisa(nome)
     if pesquisa is False:
         print(f'O nome "{nome}" fão encontrado!')
     else:
         tabela_hash.remover(nome)
-        print(f"O nome {nome} foi removido da tabela!")
+        print(f"O {nome} foi removido da tabela!")
 
 
 # Exemplo de switch case em Python

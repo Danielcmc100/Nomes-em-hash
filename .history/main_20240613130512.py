@@ -67,11 +67,9 @@ class TabelaHash:
 
 
     def remover(self, nome):
-        indice = self.calcula_index(nome)
-
         match opcao_tratamento_de_colisoes:
                 case "1":
-                        self.remove_exterior(indice, nome)
+                        pass
                 case "2":
                         pass
                 case "3":
@@ -84,21 +82,16 @@ class TabelaHash:
         indice = self.calcula_index(nome)
        
         if indice not in self.tabela:
-            return False
-        
-        elif self.tabela[indice] == nome:
-             return indice
-        
-        else:  
-            match opcao_tratamento_de_colisoes:
-                    case "1":
-                            return self.pesquisa_exterior(indice, nome)
-                    case "2":
-                            pass
-                    case "3":
-                            pass        
-                    case _:
-                        raise ValueError("Opção de tratamento de colisão inválida")
+            return False     
+        match opcao_tratamento_de_colisoes:
+                case "1":
+                        return self.pesquisa_exterior(indice, nome)
+                case "2":
+                        pass
+                case "3":
+                        pass        
+                case _:
+                    raise ValueError("Opção de tratamento de colisão inválida")
 
 
     def adiciona_exterior(self, indice, nome):
@@ -109,25 +102,18 @@ class TabelaHash:
 
 
     def pesquisa_exterior(self, indice, nome):
-        if nome in self.tabela[indice]:
-            return [indice, f"posição na lista: {self.tabela[indice].index(nome)}"]
+        if type(self.tabela[indice]) is not list:
+            if self.tabela[indice] == nome:
+                 return indice
         else:
-            return False
+            if nome in self.tabela[indice]:
+                return [indice, f"posição na lista: {self.tabela[indice].index(nome)}"]
+            else:
+                return False
 
 
-    def remove_exterior(self, indice, nome):
-        if type(self.tabela[indice]) is list:
-            self.tabela[indice].remove(nome)
-            if len(self.tabela[indice]) == 1:
-                self.tabela[indice] = self.tabela[indice][0]
-
-            elif len(self.tabela[indice]) == 0:
-                del self.tabela[indice]
-
-        else:
-            del self.tabela[indice]
-        
-            
+    def remove_exterior(self):
+        pass
 
 
     def hash_divisao(self, nome):
@@ -244,12 +230,12 @@ def buscar():
 
 def remover():
     nome = ShowMenu([], "Nome que deseja remover na tabela")
-    pesquisa = tabela_hash.pesquisar(nome)
+    pesquisa = tabela_hash.pesquisa(nome)
     if pesquisa is False:
         print(f'O nome "{nome}" fão encontrado!')
     else:
         tabela_hash.remover(nome)
-        print(f"O nome {nome} foi removido da tabela!")
+        print(f"O {nome} foi removido da tabela!")
 
 
 # Exemplo de switch case em Python
